@@ -1,10 +1,20 @@
-<dependencies>
-    <dependency>
-      <groupId>com.azure.spring</groupId>
-      <artifactId>spring-cloud-azure-starter-storage-file-share</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-  </dependencies>
+<dependency>
+    <groupId>com.azure</groupId>
+    <artifactId>azure-storage-blob</artifactId>
+    <version>12.14.0</version>
+</dependency>
+
+
+azure.storage.connection-string=DefaultEndpointsProtocol=https;AccountName=your_account_name;AccountKey=your_account_key;EndpointSuffix=core.windows.net
+
+
+    public List<String> listCsvFiles(String containerName) {
+        BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
+        List<String> csvFiles = new ArrayList<>();
+        for (BlobItem blobItem : containerClient.listBlobs()) {
+            if (blobItem.getName().endsWith(".csv")) {
+                csvFiles.add(blobItem.getName());
+            }
+        }
+        return csvFiles;
+    }
