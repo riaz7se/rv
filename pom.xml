@@ -18,3 +18,7 @@ azure.storage.connection-string=DefaultEndpointsProtocol=https;AccountName=your_
         }
         return csvFiles;
     }
+
+    public CloudDataViewer(@Value("${azure.storage.connection-string}") String connectionString) {
+        this.blobServiceClient = new BlobServiceClientBuilder().connectionString(connectionString).buildClient();
+    }
